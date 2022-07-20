@@ -1,5 +1,6 @@
 use std::io;
 use std::cmp::Ordering;
+use std::io::Read;
 use std::process::exit;
 use rand::Rng;
 use colored::*;
@@ -8,7 +9,7 @@ fn main() {
     println!("Guess the number!");
 
     let secret_number = rand::thread_rng().gen_range(1..101);
-    println!("Secret number: {}", secret_number);
+    // println!("Secret number: {}", secret_number);
 
     loop {
         println!("Please input your guess.");
@@ -32,6 +33,8 @@ fn main() {
             Ordering::Greater => println!("{}", "Too big!".red()),
             Ordering::Equal => {
                 println!("{}", "You win!".green());
+                println!("Press ENTER to continue...");
+                let _ = io::stdin().read(&mut [0u8]).unwrap();
                 break;
             }
         }
